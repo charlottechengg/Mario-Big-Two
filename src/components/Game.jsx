@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Player from './Player.jsx'
 import Opponent from './Opponent.jsx'
-import PlayingField from './PlayingField.jsx'
+import GameplayField from './GameplayField.jsx'
 import * as Rules from '../Rules.js'
 import * as Computer from '../Computer.js'
+import redBttn from '../res/redbutton.png'
+import gretBttn from '../res/greybutton.png'
 
 
 class Game extends Component {
@@ -254,17 +256,17 @@ class Game extends Component {
                     </div>
                     <div className="game-middle">
                         <Opponent class="opponent-container-top" cardClass="computer-top" cards={this.state.opponentTopCards} ></Opponent>
-                        <PlayingField
+                        <GameplayField
                             player={this.state.playerField}
                             opponentRight={this.state.opponentRightField}
                             opponentLeft={this.state.opponentLeftField}
                             opponentTop={this.state.opponentTopField}
                             playerFieldText={this.state.playerFieldText}
                         >
-                        </PlayingField>
+                        </GameplayField>
                     </div>
                     <div className="game-right">
-                        <button onClick={this.resetGame} alt="reset" className="resetButton">Reset</button>
+                        <div onClick={this.resetGame} alt="reset" className="reset-button">Reset</div>
                         <Opponent class="opponent-container-right" cardClass="computer-side" cards={this.state.opponentRightCards} ></Opponent>
                     </div>
                 </div>

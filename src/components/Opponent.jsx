@@ -2,7 +2,11 @@ import Card from './Card.jsx'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-
+/*!
+ * \Class Opponent
+ * \param props
+ * \return div element
+ */
 const Opponent = (props) => {
     if(props.cards){
         return (

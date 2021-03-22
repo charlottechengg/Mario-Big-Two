@@ -25,6 +25,14 @@ const Card = (props) =>{
     }
 }
 
+/*!
+ * Imports all card images from the folder.
+ * \fn string replaceStrings(translation, parameters)
+ * \memberof Definitions
+ * \param string translation Translation string 
+ * \param array parameters (optional) List of parameters
+ * \return string replaced string
+ */
 function importAll(r) {
     let images = {};
     r.keys().map((item) => { images[item.replace('./', '')] = r(item); });

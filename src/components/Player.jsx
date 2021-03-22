@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import Card from './Card.jsx'
 
+/*!
+ * \Class Player
+ * \param props
+ * \return div element
+ */
 class Player extends Component{
     constructor(props){
         super(props)
