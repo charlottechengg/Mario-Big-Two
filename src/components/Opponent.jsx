@@ -1,16 +1,28 @@
-import React, { Component } from 'react'
 import Card from './Card.jsx'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class Opponent extends Component {
-    render() {
-        const cards = this.props.cards;
 
+const Opponent = (props) => {
+    if(props.cards){
         return (
-            <div className={"opponent-container " + this.props.class}>
-                {cards && cards.map((card, i) => <Card key={i} card={card} class={this.props.cardClass} user="opponent" />
+            <div className={"opponent-container " + props.class}>
+                {props.cards.map((card, i) => <Card class={props.cardClass} user="opponent" key={i} card={card}/>
                 )}
             </div>
         )
+    }
+}
+
+Opponent.defaultProps = {
+    props:{
+        cardClass: "",
+    }
+}
+
+Opponent.propTypes = {
+    props:{
+        cardClass: PropTypes.string.isRequired,
     }
 }
 
