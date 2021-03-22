@@ -264,7 +264,7 @@ class Game extends Component {
                         </PlayingField>
                     </div>
                     <div className="game-right">
-                        <button onClick={this.resetGame} alt="reset" className="resetButton"></button>
+                        <button onClick={this.resetGame} alt="reset" className="resetButton">Reset</button>
                         <Opponent class="opponent-container-right" cardClass="computer-side" cards={this.state.opponentRightCards} ></Opponent>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ const Card = (props) =>{
     }
 
     const image = props.card.imagePath
-    if(props.user === "ai") {
+    if(props.user === "opponent") {
         return(
             <div>
                 <img className={props.class}  alt="card-image" src={images["Back.png"]}/>
