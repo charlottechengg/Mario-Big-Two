@@ -1,57 +1,47 @@
-import React, {Component} from 'react'
+import React from 'react';
+import PropTypes from 'prop-types'
+const images = importAll(require.context('../res/Asset', false, /\.png$/)); 
 
-const imageDir = importAll(require.context('../res/Asset', false, /\.png$/)); 
-
-class Card extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-        }
-        this.handleClick = this.handleClick.bind(this)
-    }
-
-    handleClick(e){
-        if(this.props.user === "player"){
-            this.props.selectCard(this.props.card)
+const Card = (props) =>{
+    const onClick = () => {
+        if(props.user === "player"){
+            props.selectCard(props.card)
         }
     }
 
-    render(){
-        let image = this.props.card.imagePath
-        if(this.props.user === "player") {
-            let cardClass = (this.props.selected) ? "selectedcard" : ""
+    const image = props.card.imagePath
+    if(props.user === "ai") {
+        return(
+            <div>
+                <img className={props.class}  alt="card-image" src={images["Back.png"]}/>
+            </div>
+    )} else if(props.user === "player"){
+        const classname = (props.selected) ? "selectedcard" : ""
             return(
-                <React.Fragment>
-                    <img onClick={this.handleClick} alt="card" className={"card " + cardClass} src={imageDir[image]}></img>
-                </React.Fragment>
-            )
-        } else if(this.props.user === "opponent"){
-            return(
-                <React.Fragment>
-                    <div>
-                    <img onClick={this.handleClick} alt="card" className={this.props.class}  src={imageDir["Back.png"]}></img>
-                    {/* <img onClick={this.handleClick} alt="card" className={this.props.class} src={imageDir[image]}></img> */}
-                    </div>
-                </React.Fragment>
-            )
-        } else {
-                return(
-                    <React.Fragment>
-                        <img alt="card" className={this.props.class + " flip-in-ver-left"} src={imageDir[image]}></img>
-                    </React.Fragment>
-                )
-        }
-}}
+                <img onClick={onClick}  className={"card " + classname} alt = "card-image" src={images[image]}/>)
+    } else {
+        return(
+            <img className={props.class + " flip"} alt=  "card-image" src={images[image]}/>)
+    }
+}
 
-/** 
- * Imports set of files at once
- * @param {Array} a items An array containing the items.
- */
 function importAll(r) {
     let images = {};
-    r.keys().forEach((item) => { images[item.replace('./', '')] = r(item); });
+    r.keys().map((item) => { images[item.replace('./', '')] = r(item); });
     return images;
-  }
+}
+
+Card.defaultProps = {
+    props:{
+        user: "",
+    }
+}
+
+Card.propTypes = {
+    props:{
+        user: PropTypes.string.isRequired,
+    }
+}
 
 
 export default Card
