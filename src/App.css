@@ -77,10 +77,9 @@
   text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
   text-align:center;
   outline: none;
-  max-width: 40%;
-  min-width:40%;
-  max-height: 20%;
-  font-size: 0.8vh;
+  min-width:30%;
+  max-height: 30%;
+  font-size: 1.0vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.2s;
 }
@@ -97,7 +96,7 @@
   font-weight:300;
   color:#FFFFFF;
   text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-  font-size: 1vw;
+  font-size: 1.0vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

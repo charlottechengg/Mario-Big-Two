@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { useState } from 'react'
 import Card from './Card.jsx'
 
 /*!
@@ -6,41 +6,27 @@ import Card from './Card.jsx'
  * \param props
  * \return div element
  */
-class Player extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            selectedCards : [],
-            cards: []
-        }
-        this.selectCard = this.selectCard.bind(this)
-        this.handlePlayClick = this.handlePlayClick.bind(this)
-        this.handlePassTurnClick = this.handlePassTurnClick.bind(this)
-        this.handleNumberSort = this.handleNumberSort.bind(this)
-        this.handleSuitSort = this.handleSuitSort.bind(this)
-        this.handleReset = this.handleReset.bind(this)
-    }
+const Player = (props) =>{
 
-    selectCard(card){
-        let newSelectedCards = this.state.selectedCards
+    const [selectedCards, setSelectCard] = useState([]);
 
+    const selectCard = (card) => {
+        let newSelectedCards =[];
         if(newSelectedCards.includes(card) ) {
-            newSelectedCards.splice(newSelectedCards.indexOf(card), 1)
-        } else {
-            newSelectedCards.push(card)
-        }
-        this.setState({
-            selectedCards : newSelectedCards
-        })
+        const index = selectedCards.indexOf(card)
+        newSelectedCards = [...selectedCards.slice(0, index), ...selectedCards.slice(index + 1)]
+    } else {
+        newSelectedCards = selectedCards.concat([card]);
+    }
+    setSelectCard(newSelectedCards)
+    console.log('changed');
     }
 
-    handlePlayClick(e){
+    const handlePlayClick = (e) =>{
         e.preventDefault()
-        if(this.props.playerTurn) {
-            if(this.props.playCards(this.state.selectedCards)) {
-                this.setState({
-                    selectedCards: []
-                })
+        if(props.playerTurn) {
+            if(props.playCards(selectedCards)) {
+                setSelectCard([])
             }
             document.getElementById("playbtn").disabled = true
             setTimeout(()=> {
@@ -50,10 +36,10 @@ class Player extends Component{
         
     }
 
-    handlePassTurnClick(e){
+    const handlePassTurnClick = (e) =>{
         e.preventDefault()
-        if(this.props.playerTurn) {
-            this.props.passTurn()
+        if(props.playerTurn) {
+            props.passTurn()
             document.getElementById("passbtn").disabled = true
             setTimeout(()=> {
                 if(document.getElementById("passbtn")) document.getElementById("passbtn").disabled = false
@@ -61,47 +47,43 @@ class Player extends Component{
         }     
     }
 
-    handleNumberSort(){
-        this.props.numberSort()
+    const handleNumberSort = () =>{
+        props.numberSort()
     }
 
-    handleSuitSort(){
-        this.props.suitSort()
+    const handleSuitSort = () =>{
+        props.suitSort()
     }
 
-    handleReset(){
-        this.props.resetGame()
+    const handleReset = () =>{
+        props.resetGame()
     }
 
-    render(){
-        let actionButton = this.props.playerTurn ? "" : "disabled-button"
-        let playerAction
-        if(!this.props.gameOver){
-            playerAction = <div className="player-action">
-                               <button id="playbtn" className={"player-button " + actionButton} onClick={this.handlePlayClick}>Play Cards</button>
-                               <button id="passbtn" className={"player-button " + actionButton} onClick={this.handlePassTurnClick}>Pass Turn</button>
-                               <button className="player-button" onClick={this.handleNumberSort}>Sort Type</button>
-                               <button className="player-button" onClick={this.handleSuitSort}>Sort Suit</button>
-                           </div>
-        } else {
-            playerAction = <div className="player-action">
-                            <div>Game Over!</div>
-                            <button id="resetbtn" disabled={false} className="player-button" onClick={this.handleReset}>Play Again</button>
-                            </div> 
-        }
-        let cards = this.props.cards;
-            return(
-                <div className="player-container">
-                        {cards && cards.map((card, i) => {
-                            let selected = this.state.selectedCards.includes(card)
-                            return(<Card key={i} card={card} user="player" selectCard={this.selectCard} selected={selected}/>)
+
+    let actionButton = props.playerTurn ? "" : "disabled-button";
+        return(
+            <div className="player-container">
+                {props.cards && props.cards.map((card, i) => {
+                    let selected = selectedCards.includes(card)
+                    return(<Card key={i} card={card} user="player" selectCard={selectCard} selected={selected}/>)
                         }
-                        )}
-                    {playerAction}    
-                </div> 
-            )
+                )}
+                
+                {props.gameover ? <div className="player-action">
+                    <div>Game Over!</div>
+                        <button id="resetbtn" disabled={false} className="player-button" onClick={handleReset}>Play Again</button>
+                    </div> :  <div className="player-action">
+                        <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Deal</button>
+                        <button id="passbtn" className={"player-button " + actionButton} onClick={handlePassTurnClick}>Pass</button>
+                        <button className="player-button" onClick={handleNumberSort}>Type</button>
+                        <button className="player-button" onClick={handleSuitSort}>Suit</button>
+                    </div>}
+            </div> 
+        )
         
     }
+
+Player.defaultProps = {
 }
 
 export default Player
