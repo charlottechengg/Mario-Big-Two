@@ -4,9 +4,6 @@ const images = importAll(require.context('../res/Asset', false, /\.png$/));
 
 const Card = (props) =>{
     const path = props.card.imagePath
-    const [selected, setSelected] = useState(props.selected)
-
-    useEffect(() => { setSelected(props.selected) }, [props.selected]);
 
 
     if(props.user === "opponent") {
@@ -15,7 +12,7 @@ const Card = (props) =>{
                 <img className={props.class}  alt="card-image" src={images["Back.png"]}/>
             </div>
     )} else if(props.user === "player"){
-        const classname = (selected) ? "selectedcard" : ""
+        const classname = (props.selected) ? "selectedcard" : ""
             return(
                 <img onClick={() => props.selectCard(props.card)}  className={"card " + classname} alt = "card-image" src={images[path]}/>)
     } else {

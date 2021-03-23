@@ -12,14 +12,14 @@ const Player = (props) =>{
 
     const selectCard = (card) => {
         let newSelectedCards =[];
-        if(newSelectedCards.includes(card) ) {
-        const index = selectedCards.indexOf(card)
-        newSelectedCards = [...selectedCards.slice(0, index), ...selectedCards.slice(index + 1)]
-    } else {
-        newSelectedCards = selectedCards.concat([card]);
-    }
-    setSelectCard(newSelectedCards)
-    console.log('changed');
+        if(selectedCards.includes(card) ) {
+            console.log("change")
+            const index = selectedCards.indexOf(card)
+            newSelectedCards = [...selectedCards.slice(0, index), ...selectedCards.slice(index + 1)]
+        } else {
+            newSelectedCards = selectedCards.concat([card]);
+        }
+        setSelectCard(newSelectedCards)
     }
 
     const handlePlayClick = (e) =>{

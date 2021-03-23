@@ -4,8 +4,6 @@ import Opponent from './Opponent.jsx'
 import GameplayField from './GameplayField.jsx'
 import * as Rules from '../Rules.js'
 import * as Computer from '../Computer.js'
-import redBttn from '../res/redbutton.png'
-import gretBttn from '../res/greybutton.png'
 
 
 class Game extends Component {
@@ -266,7 +264,7 @@ class Game extends Component {
                         </GameplayField>
                     </div>
                     <div className="game-right">
-                        <div onClick={this.resetGame} alt="reset" className="reset-button">Reset</div>
+                        <button onClick={this.resetGame} alt="reset" className="reset-button">Reset</button>
                         <Opponent class="opponent-container-right" cardClass="computer-side" cards={this.state.opponentRightCards} ></Opponent>
                     </div>
                 </div>
