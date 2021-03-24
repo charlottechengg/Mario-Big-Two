@@ -41,11 +41,6 @@ Card.defaultProps = {
     }
 }
 
-Card.propTypes = {
-    props:{
-        user: PropTypes.string.isRequired,
-    }
-}
 
 
 export default Card

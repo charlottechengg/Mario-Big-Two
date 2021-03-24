@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 import Card from './Card.jsx'
 
@@ -39,11 +39,6 @@ GameplayField.defaultProps = {
     }
 }
 
-GameplayField.propTypes = {
-    props:{
-        playerFieldText: PropTypes.string.isRequired,
-    }
-}
 
 
 export default GameplayField

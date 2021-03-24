@@ -18,7 +18,6 @@ export function newDeck() {
                 value: value,
                 imagePath: imagePath
             }
-            console.log(imagePath)
             deck.push(card)
         }
     }

@@ -13,7 +13,6 @@ const Player = (props) =>{
     const selectCard = (card) => {
         let newSelectedCards =[];
         if(selectedCards.includes(card) ) {
-            console.log("change")
             const index = selectedCards.indexOf(card)
             newSelectedCards = [...selectedCards.slice(0, index), ...selectedCards.slice(index + 1)]
         } else {
@@ -68,12 +67,14 @@ const Player = (props) =>{
                     return(<Card key={i} card={card} user="player" selectCard={selectCard} selected={selected}/>)
                         }
                 )}
-                
-                {props.gameover ? <div className="player-action">
-                    <div>Game Over!</div>
-                        <button id="resetbtn" disabled={false} className="player-button" onClick={handleReset}>Play Again</button>
+                {props.gameOver ? <div className="player-action">
+                    <div className="rules">
+                        <div>Game Over!</div>
+                        <div>Score {props.playerScore}</div>
+                        <button id="reset-button" disabled={false} className="player-button" onClick={handleReset}>Play Again</button>
+                    </div>
                     </div> :  <div className="player-action">
-                        <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Deal</button>
+                        <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Play</button>
                         <button id="passbtn" className={"player-button " + actionButton} onClick={handlePassTurnClick}>Pass</button>
                         <button className="player-button" onClick={handleNumberSort}>Type</button>
                         <button className="player-button" onClick={handleSuitSort}>Suit</button>
@@ -83,7 +84,6 @@ const Player = (props) =>{
         
     }
 
-Player.defaultProps = {
-}
+
 
 export default Player

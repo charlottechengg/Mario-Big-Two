@@ -1,11 +1,13 @@
 import * as Rules from './Rules.js'
 
 export function AIplayCards(cards, lastMove) {
+
     Rules.sortCardsValue(cards)
     Rules.sortCardsValue(lastMove)
     let selectedCards
 
     switch (lastMove.length) {
+        
         case 1:
             selectedCards = AIselectSingleCard(cards, lastMove)
             break;
@@ -21,6 +23,8 @@ export function AIplayCards(cards, lastMove) {
 }
 
 export function AIplayStartingTurn(cards) {
+    console.log(cards)
+    console.log("startingturn")
     for (let i = 0; i < cards.length; i++) {
         if (cards[i].value === 3 && cards[i].suit === "D") return [cards[i]]
     }
@@ -31,10 +35,7 @@ export function AIplayFreeMove(cards) {
     Rules.sortCardsValue(cards)
 
     let selectedCards = getAllFiveCardPlays(cards)
-
     if (selectedCards !== null && selectedCards.length !== 0) return selectedCards[0]
-    console.log(selectedCards)
-    console.log("here")
     selectedCards = getAllPairs(cards)
     console.log(selectedCards)
     if (selectedCards !== null && selectedCards.length !== 0) return selectedCards[0]
