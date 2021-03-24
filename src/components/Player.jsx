@@ -67,13 +67,7 @@ const Player = (props) =>{
                     return(<Card key={i} card={card} user="player" selectCard={selectCard} selected={selected}/>)
                         }
                 )}
-                {props.gameOver ? <div className="player-action">
-                    <div className="rules">
-                        <div>Game Over!</div>
-                        <div>Score {props.playerScore}</div>
-                        <button id="reset-button" disabled={false} className="player-button" onClick={handleReset}>Play Again</button>
-                    </div>
-                    </div> :  <div className="player-action">
+                {!props.gameOver &&  <div className="player-action">
                         <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Play</button>
                         <button id="passbtn" className={"player-button " + actionButton} onClick={handlePassTurnClick}>Pass</button>
                         <button className="player-button" onClick={handleNumberSort}>Type</button>

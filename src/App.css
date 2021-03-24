@@ -1,11 +1,20 @@
 .App {
 	text-align: center;
-	background-image: linear-gradient(rgba(255, 255, 255, 0.219), rgba(255, 255, 255, 0.283)),
-		url(./res/mario-background2.png);
+
 }
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+
 .App-header {
+	background-color: #282c34;
 	min-height: 100vh;
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	font-size: calc(10px + 2vmin);
 	color: white;
 }
@@ -22,6 +31,8 @@
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.219), rgba(255, 255, 255, 0.283)),
+		url(./res/mario-background2.png);
 }
 
 .game-opponent {
@@ -105,6 +116,26 @@
 	background-color: #424242;
 }
 
+
+.playagain-button{
+	font-family: 'VT323', monospace;
+	text-transform: uppercase;
+	font-size: 6rem;
+	font-weight: 100;
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	background-color: #5679f7;
+	padding: 0.3em 1.2em;
+	border-radius: 1em;
+	color: #ffffff;
+	text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+	text-align: center;
+	min-width: 100%;
+	max-height: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	transition: all 0.2s;
+}
 .player-button:hover {
 	border-color: rgba(255, 255, 255, 1);
 	border-radius: 2em;
@@ -311,9 +342,9 @@
 	background-color: #acbefc;
 	background-size: cover;
 	flex: initial;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
+	flex-flow: row;
+	align-items: center;
+	justify-content: center;
 	position: relative;
 	height: 65rem;
 	width: 80rem;
@@ -321,43 +352,41 @@
 	perspective: 200rem;
 	margin: 2rem;
 	border-radius: 2rem;
-  font-family: "VT323", monospace;
-  text-transform: uppercase;
-  font-size: 6rem;
-  font-weight: 100;
+	font-family: 'VT323', monospace;
+	text-transform: uppercase;
+	font-size: 6rem;
+	font-weight: 100;
 }
-
 
 /* On mouse-over, add a deeper shadow */
 .rules:hover {
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.rules-heading{
-  font-family: "VT323", monospace;
-  text-transform: uppercase;
-  font-size: 6rem;
-  font-weight: 100;
+.rules-heading {
+	font-family: 'VT323', monospace;
+	text-transform: uppercase;
+	font-size: 6rem;
+	font-weight: 100;
 }
-.rules-details{
-  font-family: "VT323", monospace;
-  list-style-type: none; /* Remove bullets */
-  font-size: 2.3rem;
-  font-weight: 100;
+.rules-details {
+	font-family: 'VT323', monospace;
+	list-style-type: none; /* Remove bullets */
+	font-size: 2.3rem;
+	font-weight: 100;
 }
 
-.start-button{
-  margin: 1rem;
+.start-button {
+	margin: 1rem;
 	border-radius: 3rem;
-  max-width: fit-content;
-  cursor:pointer;
+	max-width: fit-content;
+	cursor: pointer;
 }
-.start-button:hover{
-  box-shadow: 10px 10px 5px rgb(186, 217, 247);
-      -moz-box-shadow: 10px 10px 5px rgb(186, 217, 247);
-      -webkit-box-shadow: 10px 10px 5px rgb(186, 217, 247);
-      -khtml-box-shadow: 10px 10px 5px rgb(186, 217, 247);
-  
+.start-button:hover {
+	box-shadow: 10px 10px 5px rgb(186, 217, 247);
+	-moz-box-shadow: 10px 10px 5px rgb(186, 217, 247);
+	-webkit-box-shadow: 10px 10px 5px rgb(186, 217, 247);
+	-khtml-box-shadow: 10px 10px 5px rgb(186, 217, 247);
 }
 @-webkit-keyframes flip-in-ver-left {
 	0% {

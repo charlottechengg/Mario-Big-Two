@@ -17,7 +17,7 @@ const Card = (props) =>{
                 <img onClick={() => props.selectCard(props.card)}  className={"card " + classname} alt = "card-image" src={images[path]}/>)
     } else {
         return(
-            <img className={props.class + " flip"} alt=  "card-image" src={images[path]}/>)
+            <img className={props.class + " flip-in-ver-left"} alt=  "card-image" src={images[path]}/>)
     }
 }
 

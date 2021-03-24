@@ -10,7 +10,7 @@ class Game extends Component {
 		super(props);
 		this.state = {
 			rules: true,
-            playerScore: 0,
+			playerScore: 0,
 			playerCards: [],
 			opponentLeftCards: [],
 			opponentTopCards: [],
@@ -26,7 +26,7 @@ class Game extends Component {
 			lastMovePlayer: null,
 			gameOver: false,
 		};
-        this.startGame = this.startGame.bind(this);
+		this.startGame = this.startGame.bind(this);
 		this.resetGame = this.resetGame.bind(this);
 		this.playerPlayCards = this.playerPlayCards.bind(this);
 		this.playerPassTurn = this.playerPassTurn.bind(this);
@@ -56,7 +56,8 @@ class Game extends Component {
 		let turn = Rules.setFirstTurn(playerCards, opponentLeftCards, opponentTopCards, opponentRightCards);
 
 		this.setState({
-            rules:true,
+			rules: true,
+			playerScore: 0,
 			playerField: [],
 			opponentLeftField: [],
 			opponentTopField: [],
@@ -74,12 +75,12 @@ class Game extends Component {
 			playerFieldText: '',
 		});
 	}
-    startGame(){
-        this.setState({
-            rules:false,
-        })
-        if (this.turn !== 'player') this.AIplayCards();
-    }
+	startGame() {
+		this.setState({
+			rules: false,
+		});
+		if (this.turn !== 'player') this.AIplayCards();
+	}
 	playerPlayCards(cards) {
 		this.setState({ playerFieldText: '' });
 		if (this.state.startingTurn) {
@@ -255,28 +256,28 @@ class Game extends Component {
 	isGameOver() {
 		let currentPlayerCards = this.getCardsforTurn();
 		if (currentPlayerCards.length === 0) {
-            console.log("game over")
-            let score = this.computePlayerScore()
-			this.setState({ 
-                gameOver: true,
-                playerScore:score,
-            });
+			console.log('game over');
+			let score = this.computePlayerScore();
+			this.setState({
+				gameOver: true,
+				playerScore: score,
+			});
 			return true;
 		}
 	}
 
-    computePlayerScore(){
-        let len = this.state.playerCards.length
-        let score
-        if (len === 0){
-            score = 100
-        }else if(len === 12){
-            score = 1
-        }else{
-            score = len*8
-        }
-        return score
-    }
+	computePlayerScore() {
+		let len = this.state.playerCards.length;
+		let score;
+		if (len === 0) {
+			score = 100;
+		} else if (len === 12) {
+			score = 1;
+		} else {
+			score = (12-len) * 8;
+		}
+		return score;
+	}
 
 	displayPassTurn() {
 		let node = document.createElement('div');
@@ -323,13 +324,30 @@ class Game extends Component {
 									</ul>
 								</div>
 								<div className="rules-button">
-									<img className="start-button" src={startButton} onClick={this.startGame} alt = "start-button" />
+									<img
+										className="start-button"
+										src={startButton}
+										onClick={this.startGame}
+										alt="start-button"
+									/>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			);
+		} else if (this.state.gameOver) {
+			return(
+			<div className="player-action">
+				<div className="rules">
+					<div>Game Over!</div>
+					<div>Score {this.state.playerScore}</div>
+					<button id="reset-button" disabled={false} className="playagain-button" onClick={this.resetGame}>
+						Play Again
+					</button>
+				</div>
+			</div>
+			)
 		} else {
 			return (
 				<div style={{ display: 'flex' }}>
@@ -376,7 +394,7 @@ class Game extends Component {
 							numberSort={this.numberSort}
 							suitSort={this.suitSort}
 							gameOver={this.state.gameOver}
-                            playerScore={this.state.playerScore}
+							playerScore={this.state.playerScore}
 							resetGame={this.resetGame}
 						></Player>
 					</div>
