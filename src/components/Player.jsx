@@ -46,8 +46,8 @@ const Player = (props) =>{
         }     
     }
 
-    const handleNumberSort = () =>{
-        props.numberSort()
+    const handleTypeSort = () =>{
+        props.typeSort()
     }
 
     const handleSuitSort = () =>{
@@ -67,9 +67,9 @@ const Player = (props) =>{
                         }
                 )}
                 {!props.gameOver &&  <div className="player-action">
-                        <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Play</button>
+                        <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Deal</button>
                         <button id="passbtn" className={"player-button " + actionButton + " " + freeMoveButton} onClick={handlePassTurnClick}>Pass</button>
-                        <button className="player-button" onClick={handleNumberSort}>Type</button>
+                        <button className="player-button" onClick={handleTypeSort}>Type</button>
                         <button className="player-button" onClick={handleSuitSort}>Suit</button>
                     </div>}
             </div> 

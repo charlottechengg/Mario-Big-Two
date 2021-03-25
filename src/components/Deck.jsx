@@ -1,13 +1,12 @@
 import Card from './Card.jsx'
 import React from 'react'
-import PropTypes from 'prop-types'
 
 /*!
  * \Class Opponent
  * \param props
  * \return div element
  */
-const Opponent = (props) => {
+const Deck = (props) => {
     if(props.cards){
         return (
             <div className={"opponent-container " + props.class}>
@@ -18,16 +17,11 @@ const Opponent = (props) => {
     }
 }
 
-Opponent.defaultProps = {
+Deck.defaultProps = {
     props:{
         cardClass: "",
     }
 }
 
-Opponent.propTypes = {
-    props:{
-        cardClass: PropTypes.string.isRequired,
-    }
-}
 
-export default Opponent
+export default Deck

@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'
+import React from 'react';
 const images = importAll(require.context('../res/Asset', false, /\.png$/)); 
 
 const Card = (props) =>{
     const path = props.card.imagePath
-
-
     if(props.user === "opponent") {
         return(
             <div>

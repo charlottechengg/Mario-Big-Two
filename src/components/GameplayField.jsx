@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import Card from './Card.jsx'
 
 
@@ -9,18 +8,20 @@ import Card from './Card.jsx'
  * \return div element
  */
 const GameplayField = (props) => {
+
     return (
         <div className="gameplayfield-container">
-            <div className="gameplayfield-section section-top" id="opponentTop">
-                {props.opponentTop.map((card, i) => {return (<Card class="field-card" key={i} card={card} user="field" />)})}
+            <div className="gameplayfield-section section-top" id="top">
+                {props.top.map((card, i) => {return (<Card class="field-card" key={i} card={card} user="field" />)})}
             </div>
             <div className="gameplayfield-section">
-                <div className="left-field" id="opponentLeft">
-                    {props.opponentLeft.map((card, i) => {return (<Card class="field-card" key={i} card={card} user="field" />)})}
+                <div className="left-field" id="left">
+                    {props.left.map((card, i) => {return (<Card class="field-card" key={i} card={card} user="field" />)})}
                 </div>
-                <div className="right-field" id="opponentRight">
-                    {props.opponentRight.map((card, i) => {return (<Card class="field-card" key={i} card={card} user="field" />)})}
+                <div className="right-field" id="right">
+                    {props.right.map((card, i) => {return (<Card class="field-card" key={i} card={card} user="field" />)})}
                 </div>
+                
             </div>
             <div className="gameplayfield-section section-top" id="player">
                 <div className="gameplayfield-player">
