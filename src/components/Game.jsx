@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Player from './Player.jsx';
 import Opponent from './Opponent.jsx';
 import GameplayField from './GameplayField.jsx';
+import Timer from './Timer.js';
 import * as Rules from '../Rules.js';
 import * as Computer from '../Computer.js';
 import startButton from '../res/startbutton.png';
@@ -21,7 +22,10 @@ class Game extends Component {
 			opponentRightField: [],
 			startingTurn: true,
 			turn: null,
+			minutes: 10,
+			seconds: 0,
 			cardsPlayed: [],
+			freeMove: false,
 			lastMove: [],
 			lastMovePlayer: null,
 			gameOver: false,
@@ -36,6 +40,7 @@ class Game extends Component {
 		this.updateNextTurnCards = this.updateNextTurnCards.bind(this);
 		this.getCardsforTurn = this.getCardsforTurn.bind(this);
 		this.numberSort = this.numberSort.bind(this);
+		this.handleTimer = this.handleTimer.bind(this);
 		this.suitSort = this.suitSort.bind(this);
 		this.isGameOver = this.isGameOver.bind(this);
 		this.displayPassTurn = this.displayPassTurn.bind(this);
@@ -66,6 +71,8 @@ class Game extends Component {
 			opponentLeftCards: opponentLeftCards,
 			opponentTopCards: opponentTopCards,
 			opponentRightCards: opponentRightCards,
+			initialMinutes: 10,
+			initialSeconds: 0,
 			turn: turn,
 			startingTurn: true,
 			cardsPlayed: [],
@@ -79,7 +86,16 @@ class Game extends Component {
 		this.setState({
 			rules: false,
 		});
-		if (this.turn !== 'player') this.AIplayCards();
+		if (this.state.turn !== 'player') {
+			this.AIplayCards();
+		}
+	}
+
+	handleTimer() {
+		console.log(this.state.minutes + this.state.seconds);
+		this.setState({
+			gameOver: true,
+		});
 	}
 	playerPlayCards(cards) {
 		this.setState({ playerFieldText: '' });
@@ -94,19 +110,24 @@ class Game extends Component {
 				this.setState({ playerFieldText: 'starting turn must be valid and contain 3 of diamonds' });
 			}
 		} else {
-			let validPlay = Rules.isValidPlay(cards);
+			let valid = Rules.isValidPlay(cards);
 			let isFreeMove = this.state.lastMovePlayer === 'player';
+			let stronger = Rules.isStrongerPlay(this.state.lastMove, cards);
 
-			if (validPlay && (isFreeMove || Rules.isStrongerPlay(this.state.lastMove, cards))) {
+			if (valid && (isFreeMove || stronger)) {
 				this.updateNextTurnCards(cards);
 				return true;
 			} else {
-				if (!validPlay) {
+				if (!valid) {
 					this.setState({
-						playerFieldText: 'Your play must be valid and the same number of cards as the previous play',
+						playerFieldText: 'Your play must be valid',
 					});
-				} else {
+				} else if (!stronger && cards.length === this.state.lastMove.length) {
 					this.setState({ playerFieldText: 'Your play must be stronger than the previous play' });
+				} else if (cards.length !== this.state.lastMove) {
+					this.setState({
+						playerFieldText: 'Your play must contain same number of cards as the previous play',
+					});
 				}
 			}
 		}
@@ -163,6 +184,7 @@ class Game extends Component {
 				{
 					cardsPlayed: cardsPlayed,
 					lastMove: cards,
+					freeMove: false,
 					lastMovePlayer: this.state.turn,
 				},
 				() => {
@@ -231,7 +253,15 @@ class Game extends Component {
 
 	playerPassTurn() {
 		if (this.state.startingTurn) {
-			this.setState({ playerFieldText: 'You cannot pass the first turn' });
+			this.setState({
+				freeMove: true,
+				playerFieldText: 'You cannot pass the first turn',
+			});
+		} else if (this.state.lastMovePlayer === 'player') {
+			this.setState({
+				freeMove: true,
+				playerFieldText: 'You cannot pass the free move',
+			});
 		} else {
 			this.setState({ playerField: [], playerFieldText: '' });
 			this.displayPassTurn();
@@ -268,22 +298,14 @@ class Game extends Component {
 
 	computePlayerScore() {
 		let len = this.state.playerCards.length;
-		let score;
-		if (len === 0) {
-			score = 100;
-		} else if (len === 12) {
-			score = 1;
-		} else {
-			score = (12-len) * 8;
-		}
-		return score;
+		return Math.ceil((13 - len) * (100 / 13));
 	}
 
 	displayPassTurn() {
 		let node = document.createElement('div');
 		let nodetext = document.createTextNode('Pass');
 		node.append(nodetext);
-		node.setAttribute('class', 'tracking-in-expand-fwd');
+		node.setAttribute('class', 'gameplayfield-text');
 
 		let field = this.state.turn;
 		document.getElementById(field).append(node);
@@ -297,8 +319,8 @@ class Game extends Component {
 			return (
 				<div style={{ display: 'flex' }}>
 					<div className="game-container">
-						<div className="rules-container">
-							<div className="rules">
+						<div className="window-container">
+							<div className="window">
 								<div className="rules-cover">
 									<h4 className="rules-heading">
 										<span className="rules-heading-span">Rules</span>
@@ -337,17 +359,28 @@ class Game extends Component {
 				</div>
 			);
 		} else if (this.state.gameOver) {
-			return(
-			<div className="player-action">
-				<div className="rules">
-					<div>Game Over!</div>
-					<div>Score {this.state.playerScore}</div>
-					<button id="reset-button" disabled={false} className="playagain-button" onClick={this.resetGame}>
-						Play Again
-					</button>
+			return (
+				<div style={{ display: 'flex' }}>
+					<div className="game-container">
+						<div className="window-container">
+							<div className="window">
+								<div className="gameover-container">
+									<div>Game Over!</div>
+									<div>Score {this.state.playerScore}</div>
+									<button
+										id="reset-button"
+										disabled={false}
+										className="playagain-button"
+										onClick={this.resetGame}
+									>
+										Play Again
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			)
+			);
 		} else {
 			return (
 				<div style={{ display: 'flex' }}>
@@ -375,9 +408,11 @@ class Game extends Component {
 								></GameplayField>
 							</div>
 							<div className="game-right">
-								<button onClick={this.resetGame} alt="reset" className="reset-button">
-									Reset
-								</button>
+								<Timer
+									initialMinutes={this.state.minutes}
+									initialSeconds={this.state.seconds}
+									onTimer={this.handleTimer}
+								/>
 								<Opponent
 									class="opponent-container-right"
 									cardClass="computer-side"
@@ -388,6 +423,7 @@ class Game extends Component {
 						<Player
 							cards={this.state.playerCards}
 							playerTurn={this.state.turn === 'player'}
+							freeMove={this.state.freeMove}
 							playCards={this.playerPlayCards}
 							passTurn={this.playerPassTurn}
 							turn={this.state.turn}

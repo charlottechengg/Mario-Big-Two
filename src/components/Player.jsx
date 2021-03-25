@@ -54,12 +54,11 @@ const Player = (props) =>{
         props.suitSort()
     }
 
-    const handleReset = () =>{
-        props.resetGame()
-    }
 
 
     let actionButton = props.playerTurn ? "" : "disabled-button";
+    let freeMoveButton = !props.freeMove ? "" :
+    "disabled-button";
         return(
             <div className="player-container">
                 {props.cards && props.cards.map((card, i) => {
@@ -69,7 +68,7 @@ const Player = (props) =>{
                 )}
                 {!props.gameOver &&  <div className="player-action">
                         <button id="playbtn" className={"player-button " + actionButton} onClick={handlePlayClick}>Play</button>
-                        <button id="passbtn" className={"player-button " + actionButton} onClick={handlePassTurnClick}>Pass</button>
+                        <button id="passbtn" className={"player-button " + actionButton + " " + freeMoveButton} onClick={handlePassTurnClick}>Pass</button>
                         <button className="player-button" onClick={handleNumberSort}>Type</button>
                         <button className="player-button" onClick={handleSuitSort}>Suit</button>
                     </div>}

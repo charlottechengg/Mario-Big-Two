@@ -9,7 +9,7 @@
 
 
 .App-header {
-	background-color: #282c34;
+	background-color: #011233;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -83,7 +83,6 @@
 	box-sizing: border-box;
 	text-decoration: none;
 	font-family: 'Press Start 2P', cursive;
-	font-weight: 200;
 	color: #ffffff;
 	text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 	text-align: center;
@@ -104,7 +103,6 @@
 	padding: 0.3em 1.2em;
 	margin: 0 0.1em 0.1em 0;
 	font-family: 'Press Start 2P', cursive;
-	font-weight: 300;
 	color: #ffffff;
 	text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 	font-size: 1vh;
@@ -124,6 +122,7 @@
 	font-weight: 100;
 	cursor: pointer;
 	position: relative;
+	margin:100px;
 	display: inline-block;
 	background-color: #5679f7;
 	padding: 0.3em 1.2em;
@@ -131,9 +130,6 @@
 	color: #ffffff;
 	text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 	text-align: center;
-	min-width: 100%;
-	max-height: 100%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	transition: all 0.2s;
 }
 .player-button:hover {
@@ -173,11 +169,11 @@
 	flex-direction: row;
 	height: 85%;
 }
-.gameplayfield-text {
+/* .gameplayfield-text {
 	font-size: 1.3vw;
 	font-family: 'Press Start 2P', cursive;
 	height: 15%;
-}
+} */
 .section-middle {
 	justify-content: space-evenly;
 }
@@ -287,10 +283,13 @@
 	animation: flip-in-ver-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.tracking-in-expand-fwd {
-	-webkit-animation: tracking-in-expand-fwd 1.3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-	animation: tracking-in-expand-fwd 1.3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-	text-shadow: -6px 6px 18px rgba(0, 0, 0, 0.35);
+.gameplayfield-text {
+	font-family: 'VT323', monospace;
+	font-size:2.5rem;
+	position: relative;
+	padding: 0.3em 1.2em;
+	color: #ffffff;
+	text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 }
 
 @-webkit-keyframes tracking-in-expand-fwd {
@@ -327,14 +326,19 @@
 }
 
 /* Add some padding inside the card container */
-.rules-container {
+.window-container {
 	display: flex;
-	@include flexCenter;
 	padding: 3rem;
 	height: 100%;
 	position: relative;
 }
-.rules {
+
+.gameover-container{
+	position:absolute;
+	top:30%;
+	text-align:center;
+}
+.window {
 	/* Add shadows to create the "card" effect */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.3s;
@@ -356,6 +360,11 @@
 	text-transform: uppercase;
 	font-size: 6rem;
 	font-weight: 100;
+}
+
+.gameover-container{
+	justify-content: center;
+	position: relative;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -388,6 +397,22 @@
 	-webkit-box-shadow: 10px 10px 5px rgb(186, 217, 247);
 	-khtml-box-shadow: 10px 10px 5px rgb(186, 217, 247);
 }
+
+.timer-container{
+	position: absolute;
+	top:2vh;
+	background-color: #acbefc;
+	background-size: cover;
+	border-radius: 2rem;flex: initial;
+	flex-flow: row;
+	align-items: center;
+	justify-content: center;
+	font-family: 'VT323', monospace;
+	padding:1rem;
+	font-size: 2.3rem;
+	font-weight: 100;
+}
+
 @-webkit-keyframes flip-in-ver-left {
 	0% {
 		-webkit-transform: rotateY(80deg);

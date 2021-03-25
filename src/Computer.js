@@ -24,20 +24,18 @@ export function AIplayCards(cards, lastMove) {
 
 export function AIplayStartingTurn(cards) {
     console.log(cards)
-    console.log("startingturn")
+    console.log("starting turn")
     for (let i = 0; i < cards.length; i++) {
         if (cards[i].value === 3 && cards[i].suit === "D") return [cards[i]]
     }
 }
 
 export function AIplayFreeMove(cards) {
-    console.log("hi")
     Rules.sortCardsValue(cards)
 
     let selectedCards = getAllFiveCardPlays(cards)
     if (selectedCards !== null && selectedCards.length !== 0) return selectedCards[0]
     selectedCards = getAllPairs(cards)
-    console.log(selectedCards)
     if (selectedCards !== null && selectedCards.length !== 0) return selectedCards[0]
 
     return [cards[0]]
@@ -111,9 +109,7 @@ function getAllFiveCardPlays(cards) {
 function getAllPairs(cards) {
     let seenCards = new Map()
     let pairs = []
-    console.log("test1")
     for (let i = 0; i < cards.length; i++) {
-        console.log(i)
         if (seenCards.has(cards[i].type)) {
             let lastSeenCard = seenCards.get(cards[i].type)
             pairs.push([lastSeenCard, cards[i]])
