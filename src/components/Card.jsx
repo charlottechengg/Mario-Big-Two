@@ -6,15 +6,15 @@ const Card = (props) =>{
     if(props.user === "opponent") {
         return(
             <div>
-                <img className={props.class}  alt="card-image" src={images["Back.png"]}/>
+                <img className={props.class}  alt="opponent-card" src={images["Back.png"]}/>
             </div>
     )} else if(props.user === "player"){
         const classname = (props.selected) ? "selectedcard" : ""
             return(
-                <img onClick={() => props.selectCard(props.card)}  className={"card " + classname} alt = "card-image" src={images[path]}/>)
+                <img onClick={() => props.selectCard(props.card)}  className={"card " + classname} alt = "player-card" src={images[path]}/>)
     } else {
         return(
-            <img className={props.class + " flip-in-ver-left"} alt=  "card-image" src={images[path]}/>)
+            <img className={props.class + " flip-in-ver-left"} alt=  "field-card" src={images[path]}/>)
     }
 }
 
