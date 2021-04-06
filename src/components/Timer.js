@@ -14,22 +14,22 @@ const Timer = (props) => {
 				if (minutes === 0) {
 					clearInterval(myInterval);
 				} else {
-					setMinutes(minutes - 1);
 					setSeconds(59);
+					setMinutes(minutes - 1);
 				}
 			}
 		}, 1000);
 		return () => {
 			clearInterval(myInterval);
 		};
-	});
+	}, [minutes, seconds]);
 
     useEffect(() =>{
         if(minutes === 0 && seconds === 0){
             console.log("times up")
             props.onTimer()
         }
-    });
+    }, [minutes, seconds]);
 
 	return (
 		<div className = "timer-container" >

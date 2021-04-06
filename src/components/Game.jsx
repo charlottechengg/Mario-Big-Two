@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Player from './Player.jsx';
 import Deck from './Deck.jsx';
 import GameplayField from './GameplayField.jsx';
+import peachIcon from '../res/peach.png'
+import luigiIcon from '../res/luigi.png'
+import booIcon from '../res/boo.png'
 import Timer from './Timer.js';
 import * as Rules from '../Rules.js';
 import * as Computer from '../Computer.js';
@@ -352,6 +355,7 @@ class Game extends Component {
 										alt="start-button"
 									/>
 								</div>
+								<div>3XA3 G06</div>
 							</div>
 						</div>
 					</div>
@@ -382,9 +386,11 @@ class Game extends Component {
 			);
 		} else {
 			return (
-				<div style={{ display: 'flex' }}>
+				<div>
 					<div className="game-container">
 						<div className="game-opponent">
+						<img src = {booIcon} className = "top-icon"/>
+						<img src = {luigiIcon} className = "opponent-icon"/>
 							<div className="game-left">
 								<Deck
 									class="opponent-container-left"
@@ -393,6 +399,7 @@ class Game extends Component {
 								></Deck>
 							</div>
 							<div className="game-middle">
+
 								<Deck
 									class="opponent-container-top"
 									cardClass="computer-top"
@@ -418,6 +425,7 @@ class Game extends Component {
 									cards={this.state.rightCards}
 								></Deck>
 							</div>
+							<img src = {peachIcon} className = "opponent-icon"/>
 						</div>
 						<Player
 							cards={this.state.playerCards}
