@@ -57,7 +57,7 @@ const Player = (props) => {
 	let freeMoveButton = !props.freeMove ? '' : 'disabled-button';
 	return (
 		<div className="player-container">
-            <img className = "player-icon" src = {marioImg}/>
+            <img className = "player-icon" alt = "character" src = {marioImg}/>
 			{props.cards &&
 				props.cards.map((card, i) => {
 					let selected = selectedCards.includes(card);

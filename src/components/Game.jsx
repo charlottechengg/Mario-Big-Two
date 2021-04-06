@@ -389,8 +389,8 @@ class Game extends Component {
 				<div>
 					<div className="game-container">
 						<div className="game-opponent">
-						<img src = {booIcon} className = "top-icon"/>
-						<img src = {luigiIcon} className = "opponent-icon"/>
+						<img src = {booIcon} alt = "character" className = "top-icon"/>
+						<img src = {luigiIcon} alt = "character" className = "opponent-icon"/>
 							<div className="game-left">
 								<Deck
 									class="opponent-container-left"
@@ -425,7 +425,7 @@ class Game extends Component {
 									cards={this.state.rightCards}
 								></Deck>
 							</div>
-							<img src = {peachIcon} className = "opponent-icon"/>
+							<img src = {peachIcon} alt = "character" className = "opponent-icon"/>
 						</div>
 						<Player
 							cards={this.state.playerCards}
