@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Player from './Player.jsx';
 import Deck from './Deck.jsx';
 import GameplayField from './GameplayField.jsx';
-import peachIcon from '../res/peach.png'
-import luigiIcon from '../res/luigi.png'
-import booIcon from '../res/boo.png'
+import peachIcon from '../res/peach.png';
+import luigiIcon from '../res/luigi.png';
+import booIcon from '../res/boo.png';
 import Timer from './Timer.js';
 import * as Rules from '../Rules.js';
 import * as Computer from '../Computer.js';
@@ -112,7 +112,9 @@ class Game extends Component {
 				this.setState({ startingTurn: false });
 				return true;
 			} else {
-				this.setState({ playerFieldText: 'Your play must be valid and contain 3 of diamonds for starting turn' });
+				this.setState({
+					playerFieldText: 'Your play must be valid and contain 3 of diamonds for starting turn',
+				});
 			}
 		} else {
 			let valid = Rules.isValidPlay(cards);
@@ -292,11 +294,13 @@ class Game extends Component {
 		let currentPlayerCards = this.getCardsforTurn();
 		if (currentPlayerCards.length === 0) {
 			let score = this.computePlayerScore();
-			this.setState({
-				gameOver: true,
-				playerScore: score,
-			});
-			return true;
+			setTimeout(() => {
+				this.setState({
+					gameOver: true,
+					playerScore: score,
+				});
+				return true;
+			}, 1000);
 		}
 	}
 
@@ -361,11 +365,11 @@ class Game extends Component {
 					</div>
 				</div>
 			);
-		} else if (this.state.gameOver) {
+		} else {
 			return (
-				<div style={{ display: 'flex' }}>
+				<div>
 					<div className="game-container">
-						<div className="window-container">
+						{this.state.gameOver && <div className="window-container">
 							<div className="window">
 								<div className="gameover-container">
 									<div>Game Over!</div>
@@ -380,17 +384,10 @@ class Game extends Component {
 									</button>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<div className="game-container">
+						</div>}
 						<div className="game-opponent">
-						<img src = {booIcon} alt = "character" className = "top-icon"/>
-						<img src = {luigiIcon} alt = "character" className = "opponent-icon"/>
+							<img src={booIcon} alt="character" className="top-icon" />
+							<img src={luigiIcon} alt="character" className="opponent-icon" />
 							<div className="game-left">
 								<Deck
 									class="opponent-container-left"
@@ -399,7 +396,6 @@ class Game extends Component {
 								></Deck>
 							</div>
 							<div className="game-middle">
-
 								<Deck
 									class="opponent-container-top"
 									cardClass="computer-top"
@@ -425,7 +421,7 @@ class Game extends Component {
 									cards={this.state.rightCards}
 								></Deck>
 							</div>
-							<img src = {peachIcon} alt = "character" className = "opponent-icon"/>
+							<img src={peachIcon} alt="character" className="opponent-icon" />
 						</div>
 						<Player
 							cards={this.state.playerCards}

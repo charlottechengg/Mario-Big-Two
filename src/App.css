@@ -26,6 +26,7 @@
 	position: relative;
 	background-image: linear-gradient(rgba(255, 255, 255, 0.219), rgba(255, 255, 255, 0.283)),
 		url(./res/mario-background2.png);
+	z-index: 0;
 }
 
 .game-opponent {
@@ -308,7 +309,8 @@
 	display: flex;
 	padding: 3rem;
 	max-height: 80%;
-	position: relative;
+	position: absolute;
+	z-index: 10;
 }
 
 .gameover-container{
@@ -337,6 +339,7 @@
 	text-transform: uppercase;
 	font-size: 6rem;
 	font-weight: 100;
+	z-index: 10;
 }
 
 .gameover-container{
