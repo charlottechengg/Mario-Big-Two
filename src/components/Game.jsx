@@ -1,3 +1,9 @@
+/**
+ * @file Game.jsx
+ * @description React extension javascript that exports a Game react component.
+ * @author Manyi Cheng
+ */
+
 import React, { Component } from 'react';
 import Player from './Player.jsx';
 import Deck from './Deck.jsx';
@@ -10,6 +16,12 @@ import * as Rules from '../Rules.js';
 import * as Computer from '../Computer.js';
 import startButton from '../res/startbutton.png';
 
+
+/**
+ * @class A class that extends react Component, represents a big two Game.
+ * @description This class represents Game component in a big two game.
+ * @param {*} props Props from parent component.
+ */
 class Game extends Component {
 	constructor(props) {
 		super(props);
@@ -50,10 +62,17 @@ class Game extends Component {
 		this.displayPass = this.displayPass.bind(this);
 	}
 
+	/**
+	 * @description Execute the code synchronously when the component gets loaded or mounted in the DOM. This method is called during the mounting phase of the React Life-cycle
+	 * @deprecated Will be decrecated be React in the future.
+	 */
 	UNSAFE_componentWillMount() {
 		this.resetGame();
 	}
 
+	/**
+	 * @description Starts the game upon user closing the rules.
+	 */
 	startGame() {
 		this.setState({
 			rules: false,
@@ -63,6 +82,9 @@ class Game extends Component {
 		}
 	}
 
+	/**
+	 * @description Resets game states upon user clicking play again button.
+	 */
 	async resetGame() {
 		let deck = Rules.newDeck();
 
@@ -96,12 +118,20 @@ class Game extends Component {
 		});
 	}
 
+	/**
+	 * Handles game over condition when the timer reaches 0.
+	 */
 	handleTimer() {
-		console.log(this.state.minutes + this.state.seconds);
 		this.setState({
 			gameOver: true,
 		});
 	}
+
+	/**
+	 * @description player action on clicking deal button with selected cards.
+	 * @param {*} cards Selected cards to be dealt.
+	 * @returns true if valid play, false if invalid play.
+	 */
 	handlePlayerDeal(cards) {
 		this.setState({ playerFieldText: '' });
 		if (this.state.startingTurn) {
@@ -140,6 +170,9 @@ class Game extends Component {
 		}
 	}
 
+	/**
+	 * @description Controls the logic when its bot's turn to play cards.
+	 */
 	AIplayCards() {
 		let currentCards = this.getCardsforTurn();
 		let bestMove;
@@ -158,6 +191,10 @@ class Game extends Component {
 		this.updateNextTurnCards(bestMove);
 	}
 
+	/**
+	 * @description gets the current players' cards of the turn.
+	 * @returns current player cards
+	 */
 	getCardsforTurn() {
 		if (this.state.turn === 'left') return this.state.leftCards;
 		if (this.state.turn === 'top') return this.state.topCards;
@@ -165,6 +202,10 @@ class Game extends Component {
 		if (this.state.turn === 'player') return this.state.playerCards;
 	}
 
+	/**
+	 * @description Updates state cards for next turn based on the cards dealt by the current player.
+	 * @param {*} cards Cards dealt by the current player.
+	 */
 	updateNextTurnCards(cards) {
 		if (cards) {
 			let cardsPlayed = this.state.cardsPlayed;
@@ -220,6 +261,10 @@ class Game extends Component {
 		}
 	}
 
+	/**
+	 * @description Updates the GamplayField when players deal cards.
+	 * @param {*} cards Field cards
+	 */
 	updateField(cards) {
 		if (this.state.turn === 'left')
 			this.setState({ leftField: [] }, () => {
@@ -239,6 +284,10 @@ class Game extends Component {
 			});
 	}
 
+	/**
+	 * @description Set states turn, and field text for next turn, then on call back triggers next turn's play.
+	 * @returns Nothing
+	 */
 	updateNextTurn() {
 		if (this.isGameOver()) return;
 		setTimeout(() => {
@@ -258,6 +307,9 @@ class Game extends Component {
 		}, 1200);
 	}
 
+	/**
+	 * @description Handles player passing for starting turn, last move, free move and normal situations.
+	 */
 	handlePlayerPass() {
 		if (this.state.startingTurn) {
 			this.setState({
@@ -276,13 +328,18 @@ class Game extends Component {
 		}
 	}
 
+	/**
+	 * @description Sorts player's cards in type order upon player clicking type button.
+	 */
 	typeSort() {
 		let cards = this.state.playerCards;
 		Rules.sortCardsValue(cards);
 
 		this.setState({ playerCards: cards });
 	}
-
+	/**
+	 * @description Sorts player's cards in suit order upon player clicking suit button.
+	 */
 	suitSort() {
 		let cards = this.state.playerCards;
 		Rules.sortCardsSuit(cards);
@@ -290,6 +347,9 @@ class Game extends Component {
 		this.setState({ playerCards: cards });
 	}
 
+	/**
+	 * @description Checks whether the game is over and sets the game states gameOver and playerScore 1s after validation.
+	 */
 	isGameOver() {
 		let currentPlayerCards = this.getCardsforTurn();
 		if (currentPlayerCards.length === 0) {
@@ -304,11 +364,18 @@ class Game extends Component {
 		}
 	}
 
+	/**
+	 * @description Computes player score of the game.
+	 * @returns {int} Computed score.
+	 */
 	computePlayerScore() {
 		let len = this.state.playerCards.length;
 		return Math.ceil((13 - len) * (100 / 13));
 	}
 
+	/**
+	 * @description Displays text when players choose to pass the current turn.
+	 */
 	displayPass() {
 		let field = this.state.turn;
 		let node = document.createElement('div');
