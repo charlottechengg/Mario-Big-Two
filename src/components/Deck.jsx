@@ -1,10 +1,17 @@
+/**
+ * @file Deck.jsx
+ * @description This file exports a Deck react component.
+ * @author Jiaxin Tang
+ * @version Latest edition on April 11, 2021
+ */
+
 import Card from './Card.jsx'
 import React from 'react'
 
-/*!
- * \Class Opponent
- * \param props
- * \return div element
+/**
+ * @description This react arrow function represents a deck component in a big two game.
+ * @param {*} props Props from parent component.
+ * @return a div element displaying the deck
  */
 const Deck = (props) => {
     if(props.cards){
@@ -23,5 +30,7 @@ Deck.defaultProps = {
     }
 }
 
-
+/**
+ * @exports Deck
+ */
 export default Deck

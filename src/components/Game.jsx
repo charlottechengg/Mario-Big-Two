@@ -13,7 +13,7 @@ import luigiIcon from '../res/luigi.png';
 import booIcon from '../res/boo.png';
 import Timer from './Timer.js';
 import * as Rules from '../Rules.js';
-import * as Computer from '../Computer.js';
+import * as PlayerBot from '../PlayerBot.js';
 import startButton from '../res/startbutton.png';
 
 
@@ -50,7 +50,7 @@ class Game extends Component {
 		this.resetGame = this.resetGame.bind(this);
 		this.handlePlayerDeal = this.handlePlayerDeal.bind(this);
 		this.handlePlayerPass = this.handlePlayerPass.bind(this);
-		this.AIplayCards = this.AIplayCards.bind(this);
+		this.BotPlayCards = this.BotPlayCards.bind(this);
 		this.updateNextTurn = this.updateNextTurn.bind(this);
 		this.updateField = this.updateField.bind(this);
 		this.updateNextTurnCards = this.updateNextTurnCards.bind(this);
@@ -78,7 +78,7 @@ class Game extends Component {
 			rules: false,
 		});
 		if (this.state.turn !== 'player') {
-			this.AIplayCards();
+			this.BotPlayCards();
 		}
 	}
 
@@ -173,18 +173,18 @@ class Game extends Component {
 	/**
 	 * @description Controls the logic when its bot's turn to play cards.
 	 */
-	AIplayCards() {
+	BotPlayCards() {
 		let currentCards = this.getCardsforTurn();
 		let bestMove;
 
 		if (this.state.startingTurn) {
-			bestMove = Computer.AIplayStartingTurn(currentCards);
+			bestMove = PlayerBot.BotStartingTurn(currentCards);
 			this.setState({ startingTurn: false });
 		} else {
 			if (this.state.lastMovePlayer === this.state.turn) {
-				bestMove = Computer.AIplayFreeMove(currentCards);
+				bestMove = PlayerBot.BotFreeTurn(currentCards);
 			} else {
-				bestMove = Computer.AIplayCards(currentCards, this.state.lastMove);
+				bestMove = PlayerBot.BotPlayCards(currentCards, this.state.lastMove);
 			}
 		}
 
@@ -293,15 +293,15 @@ class Game extends Component {
 		setTimeout(() => {
 			if (this.state.turn === 'player') {
 				this.setState({ turn: 'right', playerFieldText: '' }, () => {
-					this.AIplayCards();
+					this.BotPlayCards();
 				});
 			} else if (this.state.turn === 'right') {
 				this.setState({ turn: 'top' }, () => {
-					this.AIplayCards();
+					this.BotPlayCards();
 				});
 			} else if (this.state.turn === 'top') {
 				this.setState({ turn: 'left' }, () => {
-					this.AIplayCards();
+					this.BotPlayCards();
 				});
 			} else this.setState({ turn: 'player' });
 		}, 1200);

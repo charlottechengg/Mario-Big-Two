@@ -1,10 +1,21 @@
+/** 
+ * @file Rules.js
+ * @description This file contains rules of BigTwo game.
+ * @author Jiaxin Tang
+ * @version Latest edition on April 11, 2021
+ */ 
+
 const suitsPath = ["Diamonds", "Clubs", "Hearts", "Spades"]
 const valuesPath = ["", "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
 const suits = ["D", "C", "H", "S"]
 const SuiteVal = [1, 2, 3, 4]
 const type = ["", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
-
+/**
+ * @function newDeck
+ * @description A function that generates a deck of 52 cards, and rearranges the order of cards in the deck
+ * @returns {card[]} deck - with cards in random order
+ */
 export function newDeck() {
     let deck = []
 
@@ -26,6 +37,12 @@ export function newDeck() {
     return shuffle(deck)
 }
 
+/**
+ * @function shuffle
+ * @description A function that rearranges the order of cards in the given deck
+ * @param {card[]} deck - a list of cards
+ * @returns {card[]} deck - with cards in random order
+ */
 
 function shuffle(deck) {
     var temp, i, j;
@@ -38,6 +55,12 @@ function shuffle(deck) {
     return deck;
 }
 
+/**
+ * @function isValidStartingPlay
+ * @description A function that checks if the current play is valid starting play
+ * @param {card[]} cards - the cards that current player has
+ * @returns {boolean} = true if cards contain Diamond 3
+ */
 export function isValidStartingPlay(cards) {
     let containsThreeOfDiamonds
 
@@ -52,6 +75,13 @@ export function isValidStartingPlay(cards) {
     }
 }
 
+/**
+ * @function isValidSPlay
+ * @description A function that checks if the current play is valid play
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if is valid play
+ */
+
 export function isValidPlay(cards) {
     if (cards == null) return false
     sortCardsValue(cards)
@@ -60,21 +90,44 @@ export function isValidPlay(cards) {
 }
 
 
-
+/**
+ * @function isValidSingle
+ * @description A function that checks if the current play is valid single play
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards contain a single card
+ */
 export function isValidSingle(cards) {
     return cards.length === 1
 }
 
+/**
+ * @function isValidPair
+ * @description A function that checks if the current play is valid pair
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards is a valid pair
+ */
 export function isValidPair(cards) {
     return cards.length === 2 && cards[0].type === cards[1].type
 }
 
+/**
+ * @function isValidFiveCardPlay
+ * @description A function that checks if the current play is valid five card play
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards is a valid combination of five cards
+ */
 export function isValidFiveCardPlay(cards) {
     if (cards.length !== 5) return false
 
     return isValidStraight(cards) || isValidFlush(cards) || isValidFullHouse(cards) || isValidFourOfaKind(cards)
 }
 
+/**
+ * @function isValidStraight
+ * @description A function that checks if the current play is valid straight
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards is a valid straight
+ */
 function isValidStraight(cards) {
     if(cards.length !== 5)
         return false
@@ -105,6 +158,12 @@ function isValidStraight(cards) {
     return flag
 }
 
+/**
+ * @function isValidFlush
+ * @description A function that checks if the current play is valid flush
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards is a valid flush
+ */
 function isValidFlush(cards) {
     if(cards.length !== 5)
         return false
@@ -118,6 +177,12 @@ function isValidFlush(cards) {
     return flag
 }
 
+/**
+ * @function isValidFullHouse
+ * @description A function that checks if the current play is valid fullhouse
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards is a valid fullhouse
+ */
 function isValidFullHouse(cards) {
     if(cards.length !== 5)
         return false
@@ -130,6 +195,12 @@ function isValidFullHouse(cards) {
         return true  
     return false}
 
+/**
+ * @function isValidFourOfaKind
+ * @description A function that checks if the current play is valid four of a kind
+ * @param {card[]} cards - the cards that current player selects
+ * @returns {boolean} - true if cards is a valid four of a kind 
+ */
 function isValidFourOfaKind(cards) {
      if(cards.length !== 5)
         return false
@@ -143,6 +214,13 @@ function isValidFourOfaKind(cards) {
     return false
 }
 
+/**
+ * @function isStrongerPlay
+ * @description A function that checks if the current play is stronger than last play
+ * @param {card[]} last - the cards that the last player plays
+ * @param {card[]} select - the cards that current player selects
+ * @returns {boolean} - true if the select play is stronger than last play
+ */
 export function isStrongerPlay(last, select) {
     var n = select.length
     if(n !== last.length)
@@ -156,6 +234,13 @@ export function isStrongerPlay(last, select) {
     }
 }
 
+/**
+ * @function isStrongerSingle
+ * @description A function that checks if the current single is stronger than last single
+ * @param {card[]} last - the cards that the last player plays
+ * @param {card[]} select - the cards that current player selects
+ * @returns {boolean} - true if the select play is stronger than last play
+ */
 export function isStrongerSingle(last, select){
     if(select[0] && last[0]){
         if(select[0].value > last[0].value)
@@ -181,6 +266,13 @@ export function isStrongerSingle(last, select){
     return false
 }
 
+/**
+ * @function isStrongerPair
+ * @description A function that checks if the current pair is stronger than last pair
+ * @param {card[]} last - the cards that the last player plays
+ * @param {card[]} select - the cards that current player selects
+ * @returns {boolean} - true if the select play is stronger than last play
+ */
 export function isStrongerPair(last, select){
     if(!isValidPair(select))
         return false
@@ -193,6 +285,13 @@ export function isStrongerPair(last, select){
     return false
 }
 
+/**
+ * @function isStrongerFive
+ * @description A function that checks if the current five card play is stronger than last five card play
+ * @param {card[]} last - the cards that the last player plays
+ * @param {card[]} select - the cards that current player selects
+ * @returns {boolean} - true if the select play is stronger than last play
+ */
 export function isStrongerFive(last, select){
     if(isValidFourOfaKind(select) && isValidFullHouse(last))
         return true
@@ -239,6 +338,12 @@ export function isStrongerFive(last, select){
     }
 }
 
+/**
+ * @function setUserCards
+ * @description A function that places 13 cards in a deck into a list to be assigned to a player. 
+ * @param {card[]} deck - a list of 52 cards in a random order
+ * @returns {card[]} userCards - contains 13 cards for a player
+ */
 export function setUserCards(deck) {
     let userCards = []
     for (let i = 0; i < 13; i++) {
@@ -247,6 +352,15 @@ export function setUserCards(deck) {
     return userCards
 }
 
+/**
+ * @function setFirstTurn
+ * @description A function that decides which player plays the first turn.
+ * @param {card[]} playerCards - a list of cards that player has
+ * @param {card[]} opponentLeftCards - a list of cards that left AI has
+ * @param {card[]} opponentTopCards - a list of cards that top AI has
+ * @param {card[]} opponentRightCards - a list of cards that right AI has
+ * @returns {string} turn - represeting the initial player
+ */
 export function setFirstTurn(playerCards, opponentLeftCards, opponentTopCards, opponentRightCards) {
     let turn
     playerCards.forEach((card) => {
@@ -267,10 +381,22 @@ export function setFirstTurn(playerCards, opponentLeftCards, opponentTopCards, o
     return turn
 }
 
+/**
+ * @function getSuitValue
+ * @description A function that gets the integer value of the corresponding suit. 
+ * @param {string} suit 
+ * @returns {int} - integer value related to suit
+ */
 export function getSuitValue(suit) {
     return (suit === "D") ? 1 : (suit === "C") ? 2 : (suit === "H") ? 3 : 4
 }
 
+/**
+ * @function sortCardsValue
+ * @description A function that sorts the given cards in the number rank order. 
+ * @param {card[]} cards
+ * @returns {card[]} cards - ordered in the number rank
+ */
 export function sortCardsValue(cards) {
     if (cards == null) return
 
@@ -279,6 +405,12 @@ export function sortCardsValue(cards) {
     })
 }
 
+/**
+ * @function sortCardsSuit
+ * @description A function that sorts the given cards in the suit rank order. 
+ * @param {card[]} cards
+ * @returns {card[]} cards - ordered in the suit rank
+ */
 export function sortCardsSuit(cards) {
     if (cards == null) return
 

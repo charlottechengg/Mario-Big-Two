@@ -1,5 +1,17 @@
+/**
+ * @file Timer.js
+ * @description This file generates a timer for the game.
+ * @author Manyi Cheng
+ * @version Latest edition on April 10, 2021
+ */
 import React, { useState, useEffect } from 'react';
 
+
+/**
+ * @function Timer
+ * @param {*} props 
+ * @returns A timmer that counts down from 10 minutes on the upper right corner of the web page during the game
+ */
 const Timer = (props) => {
 	const { initialMinutes = 0, initialSeconds = 0 } = props;
 	const [minutes, setMinutes] = useState(initialMinutes);
@@ -14,8 +26,8 @@ const Timer = (props) => {
 				if (minutes === 0) {
 					clearInterval(myInterval);
 				} else {
-					setSeconds(59);
 					setMinutes(minutes - 1);
+					setSeconds(59);
 				}
 			}
 		}, 1000);
@@ -43,4 +55,7 @@ const Timer = (props) => {
 	);
 };
 
+/**
+ * @exports Timer
+ */
 export default Timer;

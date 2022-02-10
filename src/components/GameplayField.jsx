@@ -1,11 +1,19 @@
+/**
+ * @file GameplayField.jsx
+ * @description This file exports a GameplayField react component.
+ * @author Jiaxin Tang
+ * @version Latest edition on April 11, 2021
+ */
+
 import React from 'react';
 import Card from './Card.jsx'
 
 
-/*!
- * \Class GameplayField Arranges the field for the cards that players dealt.
- * \param props
- * \return div element
+
+/**
+ * @description This react arrow function arranges the field for the cards that players dealt in a big two game.
+ * @param {*} props Props from parent component.
+ * @return a div element displaying the field
  */
 const GameplayField = (props) => {
 
@@ -40,6 +48,7 @@ GameplayField.defaultProps = {
     }
 }
 
-
-
+/**
+ * @exports GameplayField
+ */
 export default GameplayField
